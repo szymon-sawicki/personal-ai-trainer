@@ -27,6 +27,9 @@ public class TrainingPreference {
     @Column(name = "times_per_week", nullable = false)
     private Integer timesPerWeek;
 
+    @Column(name = "session_duration", nullable = false)
+    private Integer sessionDuration;
+
     @ElementCollection
     @CollectionTable(name = "training_places",
             joinColumns = @JoinColumn(name = "training_preference_id"))
@@ -51,4 +54,7 @@ public class TrainingPreference {
 
     @Column(name = "preferred_start", nullable = false)
     private LocalDate preferredStart;
+
+    @Column(name = "excluded_exercises")
+    private String excludedExercises;
 }

@@ -1,5 +1,5 @@
 package net.szymonsawicki.personalaitrainer.domain.type;
 
 public enum CurrentFitnessState {
-    BEGINNER, INTERMEDIATE, ADVANCED
+    BEGINNER, INTERMEDIATE, ADVANCED, ELITE
 }

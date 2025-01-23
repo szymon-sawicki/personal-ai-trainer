@@ -4,6 +4,7 @@ import net.szymonsawicki.personalaitrainer.domain.type.Gender;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public record PersonDto(
         Long id,
@@ -15,6 +16,9 @@ public record PersonDto(
         Integer startingWeight,
         LocalDate birthDate,
         String chronicIllnesses,
+        String injuries,
+        Integer experienceYears,
+        TrainingPreferenceDto trainingPreference,
         LocalDateTime createdAt,
         LocalDateTime modifiedAt
 ) {}

@@ -1,5 +1,6 @@
 package net.szymonsawicki.personalaitrainer.domain.entity;
 
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,11 +39,17 @@ public class Person {
     @Column(name = "starting_weight", nullable = false)
     private Integer startingWeight;
 
+    @Column(name = "experience_years", nullable = false)
+    private Integer experienceYears;
+
     @Column(name = "birth_date", nullable = false)
     private LocalDate birthDate;
 
     @Column(name = "chronic_illnesses")
     private String chronicIllnesses;
+
+    @Column(name = "injuries")
+    private String injuries;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
