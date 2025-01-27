@@ -1,0 +1,38 @@
+meta {
+  name: Create training plan
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/api/v1/training-plans
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "id": 1,
+    "personId": 1,
+    "timesPerWeek": 3,
+    "trainingPlaces": [
+      "GYM",
+      "HOME"
+    ],
+    "preferredDays": [
+      "MONDAY",
+      "WEDNESDAY",
+      "FRIDAY"
+    ],
+    "trainingTarget": "WEIGHT_LOSS",
+    "fitnessState": "BEGINNER",
+    "preferredStart": "2024-02-01",
+    "sessionDuration": 60,
+    "availableEquipment": [
+      "DUMBBELLS",
+      "RESISTANCE_BANDS",
+      "YOGA_MAT"
+    ],
+    "excludedExercises": "burpees, pull-ups"
+  }
+}
