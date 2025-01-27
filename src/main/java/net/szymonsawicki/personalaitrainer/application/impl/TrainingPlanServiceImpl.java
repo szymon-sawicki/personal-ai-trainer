@@ -16,6 +16,6 @@ public class TrainingPlanServiceImpl implements TrainingPlanService {
   @Override
   public String generateTrainingPlanInTextForm(TrainingPreferenceDto trainingPreferenceDto) {
     var person = personService.getPersonById(trainingPreferenceDto.personId());
-    return trainingPlanAiService.createTrainingPlan(person, trainingPreferenceDto);
+    return trainingPlanAiService.createTrainingPlan(person, trainingPreferenceDto,trainingPreferenceDto.id());
   }
 }
