@@ -11,4 +11,6 @@ public record PersonCreateDto(
     Integer height,
     Integer startingWeight,
     LocalDate birthDate,
-    String chronicIllnesses) {}
+    String chronicIllnesses,
+    Integer experienceYears,
+    String injuries) {}
