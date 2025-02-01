@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import net.szymonsawicki.personalaitrainer.application.service.TrainingPlanService;
+import net.szymonsawicki.personalaitrainer.domain.dto.TrainingPlanDto;
 import net.szymonsawicki.personalaitrainer.domain.dto.TrainingPreferenceDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,9 +28,11 @@ public class TrainingPlanController {
         @ApiResponse(responseCode = "400", description = "Invalid input data")
       })
   public ResponseEntity<
-          net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse<String>>
+          net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse<
+              TrainingPlanDto>>
       createPerson(@Valid @RequestBody TrainingPreferenceDto trainingPreferenceDto) {
-    String trainingPlan = trainingPlanService.generateTrainingPlanInTextForm(trainingPreferenceDto);
+    TrainingPlanDto trainingPlan =
+        trainingPlanService.generateTrainingPlanInTextForm(trainingPreferenceDto);
     return ResponseEntity.status(HttpStatus.CREATED)
         .body(
             net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse.of(

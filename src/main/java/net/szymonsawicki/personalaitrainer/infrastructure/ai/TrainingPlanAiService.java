@@ -3,11 +3,9 @@ package net.szymonsawicki.personalaitrainer.infrastructure.ai;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import dev.langchain4j.service.V;
-import dev.langchain4j.service.spring.AiService;
 import net.szymonsawicki.personalaitrainer.domain.dto.PersonDto;
 import net.szymonsawicki.personalaitrainer.domain.dto.TrainingPreferenceDto;
 
-@AiService
 public interface TrainingPlanAiService {
 
   @SystemMessage(
@@ -137,7 +135,13 @@ public interface TrainingPlanAiService {
     7. All numerical values are positive integers
     8. Equipment matches available options: DUMBBELLS, RESISTANCE_BANDS, YOGA_MAT, etc.
 
-    The response must be valid JSON that can be directly parsed into the provided DTO structure.
+              Response requirements:
+                  1. Return only a single-line, minified JSON object
+                  2. Do not include any explanatory text before or after the JSON
+                  3. Do not use markdown formatting
+                  4. Do not include line breaks or additional whitespace
+                  5. Ensure all special characters are properly escaped
+                  6. The response must start with '{' and end with '}'
     """)
   String createTrainingPlan(
       @V("person") PersonDto person,
