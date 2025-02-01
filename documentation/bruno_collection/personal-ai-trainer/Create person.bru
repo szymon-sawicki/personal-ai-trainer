@@ -1,0 +1,25 @@
+meta {
+  name: Create person
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/api/v1/persons
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "firstName": "John",
+    "lastName": "Doe",
+    "mailAddress": "john.doe@example.com",
+    "gender": "MALE",
+    "height": 180,
+    "startingWeight": 75,
+    "birthDate": "1990-05-15",
+    "chronicIllnesses": "diabetes, hypertension",
+    "experienceYears": 2
+  }
+}
