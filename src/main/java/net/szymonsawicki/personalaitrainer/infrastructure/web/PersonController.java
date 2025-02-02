@@ -48,7 +48,7 @@ public class PersonController {
       })
   public ResponseEntity<
           net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse<PersonDto>>
-      getPerson(@Parameter(description = "Person ID") @PathVariable Long id) {
+      getPerson(@Parameter(description = "Person ID") @PathVariable(name = "id") Long id) {
     PersonDto person = personService.getPersonById(id);
     return ResponseEntity.ok(
         net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse.of(
@@ -78,7 +78,7 @@ public class PersonController {
   public ResponseEntity<
           net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse<PersonDto>>
       updatePerson(
-          @Parameter(description = "Person ID") @PathVariable Long id,
+          @Parameter(description = "Person ID") @PathVariable(name = "id") Long id,
           @Valid @RequestBody PersonCreateDto personDto) {
     PersonDto updated = personService.updatePerson(id, personDto);
     return ResponseEntity.ok(
@@ -94,7 +94,7 @@ public class PersonController {
         @ApiResponse(responseCode = "404", description = "Person not found")
       })
   public ResponseEntity<Void> deletePerson(
-      @Parameter(description = "Person ID") @PathVariable Long id) {
+      @Parameter(description = "Person ID") @PathVariable(name = "id") Long id) {
     personService.deletePerson(id);
     return ResponseEntity.noContent().build();
   }

@@ -14,4 +14,5 @@ public record TrainingPreferenceCreateDto(
     List<DayOfWeek> preferredDays,
     TrainingTarget trainingTarget,
     CurrentFitnessState fitnessState,
-    LocalDate preferredStart) {}
+    LocalDate preferredStart,
+    Integer sessionDuration) {}

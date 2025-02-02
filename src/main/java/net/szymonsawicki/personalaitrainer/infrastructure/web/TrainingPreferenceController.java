@@ -57,7 +57,7 @@ public class TrainingPreferenceController {
           net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse<
               TrainingPreferenceDto>>
       getTrainingPreference(
-          @Parameter(description = "Training Preference ID") @PathVariable Long id) {
+          @Parameter(description = "Training Preference ID") @PathVariable(name = "id") Long id) {
     TrainingPreferenceDto preference = trainingPreferenceService.getTrainingPreferenceById(id);
     return ResponseEntity.ok(
         net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse.of(
@@ -75,7 +75,7 @@ public class TrainingPreferenceController {
           net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse<
               TrainingPreferenceDto>>
       getTrainingPreferenceByPersonId(
-          @Parameter(description = "Person ID") @PathVariable Long personId) {
+          @Parameter(description = "Person ID") @PathVariable(name = "personId") Long personId) {
     TrainingPreferenceDto preference =
         trainingPreferenceService.getTrainingPreferenceByPersonId(personId);
     return ResponseEntity.ok(
@@ -109,7 +109,7 @@ public class TrainingPreferenceController {
           net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse<
               TrainingPreferenceDto>>
       updateTrainingPreference(
-          @Parameter(description = "Training Preference ID") @PathVariable Long id,
+          @Parameter(description = "Training Preference ID") @PathVariable(name = "id") Long id,
           @Valid @RequestBody TrainingPreferenceCreateDto preferenceDto) {
     TrainingPreferenceDto updated =
         trainingPreferenceService.updateTrainingPreference(id, preferenceDto);
@@ -128,7 +128,7 @@ public class TrainingPreferenceController {
         @ApiResponse(responseCode = "404", description = "Training preference not found")
       })
   public ResponseEntity<Void> deleteTrainingPreference(
-      @Parameter(description = "Training Preference ID") @PathVariable Long id) {
+      @Parameter(description = "Training Preference ID") @PathVariable(name = "id") Long id) {
     trainingPreferenceService.deleteTrainingPreference(id);
     return ResponseEntity.noContent().build();
   }
