@@ -30,7 +30,8 @@ public class TrainingPlanController {
         @ApiResponse(responseCode = "400", description = "Invalid input data")
       })
   public ResponseEntity<
-          net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse<TrainingPlanDto>>
+          net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse<
+              TrainingPlanDto>>
       createTrainingPlan(@Valid @RequestBody TrainingPreferenceDto planDto) {
     TrainingPlanDto created = trainingPlanService.generateTrainingPlanInTextForm(planDto);
     return ResponseEntity.status(HttpStatus.CREATED)
@@ -47,9 +48,11 @@ public class TrainingPlanController {
         @ApiResponse(responseCode = "404", description = "Training plan not found")
       })
   public ResponseEntity<
-          net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse<TrainingPlanDto>>
-      getTrainingPlan(@Parameter(description = "Training Plan ID") @PathVariable(name = "id") Long id) {
-   // TrainingPlanDto plan = trainingPlanService.getTrainingPlanById(id);
+          net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse<
+              TrainingPlanDto>>
+      getTrainingPlan(
+          @Parameter(description = "Training Plan ID") @PathVariable(name = "id") Long id) {
+    // TrainingPlanDto plan = trainingPlanService.getTrainingPlanById(id);
     return ResponseEntity.ok(
         net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse.of(
             "Training plan retrieved successfully", null));
@@ -64,11 +67,12 @@ public class TrainingPlanController {
         @ApiResponse(responseCode = "400", description = "Invalid input data")
       })
   public ResponseEntity<
-          net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse<TrainingPlanDto>>
+          net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse<
+              TrainingPlanDto>>
       updateTrainingPlan(
           @Parameter(description = "Training Plan ID") @PathVariable(name = "id") Long id,
           @Valid @RequestBody TrainingPlanDto planDto) {
-   // TrainingPlanDto updated = trainingPlanService.updateTrainingPlan(id, planDto);
+    // TrainingPlanDto updated = trainingPlanService.updateTrainingPlan(id, planDto);
     return ResponseEntity.ok(
         net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse.of(
             "Training plan updated successfully", null));
@@ -83,7 +87,7 @@ public class TrainingPlanController {
       })
   public ResponseEntity<Void> deleteTrainingPlan(
       @Parameter(description = "Training Plan ID") @PathVariable(name = "id") Long id) {
-    //trainingPlanService.deleteTrainingPlan(id);
+    // trainingPlanService.deleteTrainingPlan(id);
     return ResponseEntity.noContent().build();
   }
 
