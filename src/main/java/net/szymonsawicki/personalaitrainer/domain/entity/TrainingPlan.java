@@ -19,6 +19,10 @@ public class TrainingPlan {
   @Column(name = "training_preference_id")
   private Long trainingPreferenceId;
 
+  @ManyToOne
+  @JoinColumn(name = "person_id", referencedColumnName = "id")
+  private Person person;
+
   @Column(name = "start_date")
   private LocalDate startDate;
 

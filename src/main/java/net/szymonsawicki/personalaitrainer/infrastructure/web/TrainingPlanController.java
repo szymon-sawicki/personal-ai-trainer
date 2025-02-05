@@ -33,11 +33,29 @@ public class TrainingPlanController {
           net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse<
               TrainingPlanDto>>
       createTrainingPlan(@Valid @RequestBody TrainingPreferenceDto planDto) {
-    TrainingPlanDto created = trainingPlanService.generateTrainingPlanInTextForm(planDto);
+    TrainingPlanDto created = trainingPlanService.generateTrainingPlan(planDto);
     return ResponseEntity.status(HttpStatus.CREATED)
         .body(
             net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse.of(
                 "Training plan created successfully", created));
+  }
+
+  @PostMapping("/save")
+  @Operation(summary = "Create and save new training plan in database")
+  @ApiResponses(
+      value = {
+        @ApiResponse(responseCode = "201", description = "Training plan created successfully"),
+        @ApiResponse(responseCode = "400", description = "Invalid input data")
+      })
+  public ResponseEntity<
+          net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse<
+              TrainingPlanDto>>
+      createAndSaveTrainingPlan(@Valid @RequestBody TrainingPreferenceDto planDto) {
+    TrainingPlanDto created = trainingPlanService.generateAndSaveTrainingPlan(planDto);
+    return ResponseEntity.status(HttpStatus.CREATED)
+        .body(
+            net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse.of(
+                "Training plan created and saved in database successfully", created));
   }
 
   @GetMapping("/{id}")
@@ -52,10 +70,9 @@ public class TrainingPlanController {
               TrainingPlanDto>>
       getTrainingPlan(
           @Parameter(description = "Training Plan ID") @PathVariable(name = "id") Long id) {
-    // TrainingPlanDto plan = trainingPlanService.getTrainingPlanById(id);
     return ResponseEntity.ok(
         net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse.of(
-            "Training plan retrieved successfully", null));
+            "Training plan retrieved successfully", trainingPlanService.getTrainingPlan(id)));
   }
 
   @PutMapping("/{id}")
@@ -72,10 +89,10 @@ public class TrainingPlanController {
       updateTrainingPlan(
           @Parameter(description = "Training Plan ID") @PathVariable(name = "id") Long id,
           @Valid @RequestBody TrainingPlanDto planDto) {
-    // TrainingPlanDto updated = trainingPlanService.updateTrainingPlan(id, planDto);
     return ResponseEntity.ok(
         net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse.of(
-            "Training plan updated successfully", null));
+            "Training plan updated successfully",
+            trainingPlanService.updateTrainingPlan(id, planDto)));
   }
 
   @DeleteMapping("/{id}")
@@ -87,20 +104,20 @@ public class TrainingPlanController {
       })
   public ResponseEntity<Void> deleteTrainingPlan(
       @Parameter(description = "Training Plan ID") @PathVariable(name = "id") Long id) {
-    // trainingPlanService.deleteTrainingPlan(id);
+    trainingPlanService.deleteTrainingPlan(id);
     return ResponseEntity.noContent().build();
   }
 
-  @GetMapping
-  @Operation(summary = "Get all training plans")
-  @ApiResponse(responseCode = "200", description = "List of training plans retrieved successfully")
+  @GetMapping("/person/{personId}")
+  @Operation(summary = "Get training plan by person ID")
   public ResponseEntity<
           net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse<
               List<TrainingPlanDto>>>
-      getAllTrainingPlans() {
-    // List<TrainingPlanDto> plans = trainingPlanService.getAllTrainingPlans();
+      getTrainingPlanByPersonId(
+          @Parameter(description = "Person ID") @PathVariable(name = "personId") Long personId) {
     return ResponseEntity.ok(
         net.szymonsawicki.personalaitrainer.infrastructure.web.common.ApiResponse.of(
-            "Training plans retrieved successfully", null));
+            "Training plan retrieved successfully",
+            trainingPlanService.getTrainingPlansByPersonId(personId)));
   }
 }

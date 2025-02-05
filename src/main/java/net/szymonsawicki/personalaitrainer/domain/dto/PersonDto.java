@@ -17,5 +17,6 @@ public record PersonDto(
     String injuries,
     Integer experienceYears,
     TrainingPreferenceDto trainingPreference,
+    TrainingPlanDto trainingPlan,
     LocalDateTime createdAt,
     LocalDateTime modifiedAt) {}

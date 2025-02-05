@@ -4,13 +4,17 @@ import java.util.List;
 import net.szymonsawicki.personalaitrainer.domain.dto.*;
 
 public interface TrainingPlanService {
-  TrainingPlanDto generateTrainingPlanInTextForm(TrainingPreferenceDto trainingPreferenceDto);
+  TrainingPlanDto generateTrainingPlan(TrainingPreferenceDto trainingPreferenceDto);
+
+  TrainingPlanDto generateAndSaveTrainingPlan(TrainingPreferenceDto trainingPreferenceDto);
 
   TrainingPlanDto createTrainingPlan(TrainingPlanDto trainingPlanDto);
 
   TrainingPlanDto getTrainingPlan(Long id);
 
   List<TrainingPlanDto> getTrainingPlansByPreference(Long preferenceId);
+
+  List<TrainingPlanDto> getTrainingPlansByPersonId(Long preferenceId);
 
   TrainingPlanDto updateTrainingPlan(Long id, TrainingPlanDto trainingPlanDto);
 

@@ -10,5 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface TrainingPlanRepository extends JpaRepository<TrainingPlan, Long> {
   List<TrainingPlan> findByTrainingPreferenceId(Long trainingPreferenceId);
 
+  List<TrainingPlan> findAllByPersonId(Long personId);
+
   Optional<TrainingPlan> findByIdAndTrainingPreferenceId(Long id, Long trainingPreferenceId);
 }

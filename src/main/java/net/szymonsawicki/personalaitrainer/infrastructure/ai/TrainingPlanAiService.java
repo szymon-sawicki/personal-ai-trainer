@@ -39,6 +39,7 @@ public interface TrainingPlanAiService {
     Create a personalized training plan in the following JSON format:
     {
       "trainingPreferenceId": {{preferenceId}},
+      "personId": {{personId}},
       "startDate": "YYYY-MM-DD",
       "endDate": "YYYY-MM-DD",
       "weeklySchedules": [
@@ -146,5 +147,6 @@ public interface TrainingPlanAiService {
   String createTrainingPlan(
       @V("person") PersonDto person,
       @V("preferences") TrainingPreferenceDto preferences,
-      @V("preferenceId") Long preferenceId);
+      @V("preferenceId") Long preferenceId,
+      @V("personId") Long personId);
 }

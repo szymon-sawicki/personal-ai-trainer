@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import net.szymonsawicki.personalaitrainer.application.service.PersonService;
 import net.szymonsawicki.personalaitrainer.application.service.TrainingPlanService;
+import net.szymonsawicki.personalaitrainer.application.service.TrainingPreferenceService;
 import net.szymonsawicki.personalaitrainer.domain.dto.*;
 import net.szymonsawicki.personalaitrainer.domain.entity.TrainingPlan;
 import net.szymonsawicki.personalaitrainer.domain.mapper.TrainingPlanMapper;
@@ -29,6 +30,7 @@ import software.amazon.awssdk.regions.Region;
 @RequiredArgsConstructor
 public class TrainingPlanServiceImpl implements TrainingPlanService {
   private final PersonService personService;
+  private final TrainingPreferenceService trainingPreferenceService;
   private final ObjectMapper objectMapper;
   private final TrainingPlanRepository trainingPlanRepository;
   private final TrainingPlanMapper trainingPlanMapper;
@@ -37,8 +39,7 @@ public class TrainingPlanServiceImpl implements TrainingPlanService {
   private final ExerciseRepository exerciseRepository;
 
   @Override
-  public TrainingPlanDto generateTrainingPlanInTextForm(
-      TrainingPreferenceDto trainingPreferenceDto) {
+  public TrainingPlanDto generateTrainingPlan(TrainingPreferenceDto trainingPreferenceDto) {
     var person = personService.getPersonById(trainingPreferenceDto.personId());
 
     ChatLanguageModel model =
@@ -56,13 +57,25 @@ public class TrainingPlanServiceImpl implements TrainingPlanService {
     TrainingPlanDto trainingPlanDto;
 
     var responseFromLllm =
-        service.createTrainingPlan(person, trainingPreferenceDto, trainingPreferenceDto.id());
+        service.createTrainingPlan(
+            person,
+            trainingPreferenceDto,
+            trainingPreferenceDto.id(),
+            trainingPreferenceDto.personId());
     try {
       trainingPlanDto = objectMapper.readValue(responseFromLllm, TrainingPlanDto.class);
     } catch (JsonProcessingException e) {
       throw new RuntimeException(e);
     }
     return trainingPlanDto;
+  }
+
+  @Override
+  public TrainingPlanDto generateAndSaveTrainingPlan(TrainingPreferenceDto trainingPreferenceDto) {
+    var generatedTrainingPlan = generateTrainingPlan(trainingPreferenceDto);
+    var savedTrainingPlan =
+        trainingPlanRepository.save(trainingPlanMapper.toEntity(generatedTrainingPlan));
+    return trainingPlanMapper.toDto(savedTrainingPlan);
   }
 
   public TrainingPlanDto createTrainingPlan(TrainingPlanDto trainingPlanDto) {
@@ -84,6 +97,13 @@ public class TrainingPlanServiceImpl implements TrainingPlanService {
   public List<TrainingPlanDto> getTrainingPlansByPreference(Long preferenceId) {
     log.info("Fetching training plans for preference ID: {}", preferenceId);
     List<TrainingPlan> plans = trainingPlanRepository.findByTrainingPreferenceId(preferenceId);
+    return trainingPlanMapper.toDtoList(plans);
+  }
+
+  @Override
+  public List<TrainingPlanDto> getTrainingPlansByPersonId(Long personId) {
+    log.info("Fetching training plans for person ID: {}", personId);
+    List<TrainingPlan> plans = trainingPlanRepository.findAllByPersonId(personId);
     return trainingPlanMapper.toDtoList(plans);
   }
 

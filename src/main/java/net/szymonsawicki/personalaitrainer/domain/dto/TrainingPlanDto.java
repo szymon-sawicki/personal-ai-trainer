@@ -6,6 +6,7 @@ import java.util.List;
 public record TrainingPlanDto(
     Long id,
     Long trainingPreferenceId,
+    Long personId,
     LocalDate startDate,
     LocalDate endDate,
     List<WeeklyScheduleDto> weeklySchedules,

@@ -3,6 +3,8 @@ package net.szymonsawicki.personalaitrainer.domain.entity;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import net.szymonsawicki.personalaitrainer.domain.type.Gender;
@@ -57,6 +59,9 @@ public class Person {
   @Column(name = "modified_at")
   private LocalDateTime modifiedAt;
 
-  @OneToOne(mappedBy = "person", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+  private List<TrainingPlan> trainingPlans = new ArrayList<>();
+
+  @OneToOne(mappedBy = "person", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   private TrainingPreference trainingPreference;
 }
